@@ -24,24 +24,37 @@ class WindTurbine extends Model
                 $lightning_strike = true;
             }
 
+            $item_data = [
+                "part_number" => $i
+            ];
+
             if($coating_damage && $lightning_strike) {
                 // both $coating_damage and $lightning_strike == true, label this item appropriately
-                $inspection_data[] = "Coating Damage and Lightning Strike";
+                $item_data["condition"] = "Coating Damage and Lightning Strike";
+                $inspection_data[] = $item_data;
                 // Using continue instead of a long if/if else/if else/else statement, it exits the loop early to avoid the following conditionals
                 continue;
             }
 
             if($coating_damage) {
-                $inspection_data[] = "Coating Damage";
+                $item_data["condition"] = "Coating Damage";
+                $inspection_data[] = $item_data;
                 continue;
             }
 
             if($lightning_strike) {
-                $inspection_data[] = "Lightning Strike";
+                $item_data["condition"] = "Lightning Strike";
+                $inspection_data[] = $item_data;
                 continue;
             }
 
-            $inspection_data[] = $i;
+            // For a better UX I've opted to set the value to the string 'Good' instead of $i
+            // $i is used as the index and is displayed on the front end
+            // Could've assigned $i instead if it is preferable - $inspection_data[$i] = $i;
+            $item_data["condition"] = "Good";
+
+            $inspection_data[] = $item_data;
+
         }
 
         return $inspection_data;
