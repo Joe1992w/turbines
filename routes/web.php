@@ -12,7 +12,5 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('wind-turbines.inspection-data');
 });
-
-Route::get('wind-turbines/inspection-data', 'WindTurbineController@inspectionData');
